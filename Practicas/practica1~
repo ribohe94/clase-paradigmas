@@ -1,0 +1,11 @@
+#lang racket
+(define seq1
+  (lambda (n)
+    (if (zero? n) '(0)
+        (cons n (seq1 (- n 1))))))
+
+(define seq2
+  (lambda (n)
+    (if (zero? n) '(0)
+        (append (seq2 (- n 1)) (list n)))))
+
