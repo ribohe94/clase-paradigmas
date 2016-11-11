@@ -1,0 +1,37 @@
+#lang racket
+
+;;;;;;Run-length encoding of a list.;;;;;;;;
+;Use the result of problem P09 to implement the so-called run-length encoding
+;data compression method. Consecutive duplicates of elements are encoded as
+;lists (N E) where N is the number of duplicates of the element E.
+
+(define pack 
+   (lambda (xs) 
+     (if (null? xs) '() 
+       (let loop ((rest (cdr xs)) 
+                  (pkg (list (car xs)))) 
+         (cond ((null? rest) 
+                (list pkg)) 
+               ((eq? (car pkg) (car rest)) 
+                (loop (cdr rest) (cons (car rest) pkg))) 
+               (else 
+                 (cons pkg (loop (cdr rest) (list (car rest))))))))))
+
+(pack '(a a a a b c c a a d e e e e)) 
+
+(define map 
+   (lambda (f xs) 
+     (if (null? xs) '() 
+       (cons (f (car xs)) (map f (cdr xs)))))) 
+
+(define encode-f 
+   (lambda (xs encoder) 
+     (map encoder (pack xs)))) 
+
+(define encode 
+   (lambda (xs) 
+     (let ((encoder (lambda (pkg) 
+                      (list (length pkg) (car pkg))))) 
+       (encode-f xs encoder))))
+
+(encode '(a a a a b c c a a d e e e e))

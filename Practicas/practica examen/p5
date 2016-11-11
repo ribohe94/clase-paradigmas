@@ -1,0 +1,16 @@
+#lang racket
+
+;Reverse a list.
+
+(define lista(list 1 2 3 4 5 6))
+
+(define f1
+  (lambda (L) 
+  (if (null? L)
+      '()
+       (append (list (f1 (cdr L))) (list (car L))))
+    )
+  )
+
+
+(f1 lista)

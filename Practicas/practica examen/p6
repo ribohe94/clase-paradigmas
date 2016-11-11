@@ -1,0 +1,15 @@
+#lang racket
+
+;Find out whether a list is a palindrome.
+
+;A palindrome can be read forward or backward; e.g. (x a m a x).
+
+
+(define lista(list 1 2 3 2 1))
+
+(define f2
+  (lambda (L)
+    (if (equal? L (reverse L)) #t #f)
+    ))
+
+(f2 lista)

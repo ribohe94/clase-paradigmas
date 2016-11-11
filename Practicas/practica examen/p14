@@ -1,0 +1,11 @@
+#lang racket
+
+;Duplicate the elements of a list.
+
+(define dupli 
+   (lambda (xs) 
+     (if (null? xs) '() 
+       (cons (car xs) 
+             (cons (car xs) (dupli (cdr xs))))))) 
+
+ (dupli '(a b c c d)) 

@@ -1,0 +1,68 @@
+#lang racket
+
+(define personas
+  '(
+    ("juan" "perez" 19 "heredia")
+    ("marta" "arias" 18 "heredia")
+    ("carlos" "gonzalez" 19 "alajuela")
+    ("adriana" "mora" 21 "heredia")
+    ("gerardo" "salazar" 24 "cartago")
+    ("gabriela" "soto" 20 "heredia")
+    ))
+
+(define personas2
+  '(("gabriela" "soto" 20 "heredia")
+    ("adriana" "mora" 21 "heredia")
+    ))
+
+; Una lista con el nombre y apellido de
+; todas las personas que viven en Heredia...
+
+; Una lista del nombre y lugar de residencia de
+; todas las personas de 20 años o mayores..
+
+; --------------------------------------------
+;
+;'(("juan" "perez")
+;  ("marta" "arias")
+;  ("adriana" "mora")
+;  ("gabriela" "soto"))
+;
+;'(("adriana" "heredia")
+;  ("gerardo" "cartago")
+;  ("gabriela" "heredia"));
+;
+; --------------------------------------------
+
+
+
+(define last
+  (lambda (L)
+    (if (null? (cdr L)) (car L)
+        (last (cdr L)))))
+
+(define age
+  (lambda (L)
+    (car (cdr (cdr L)))))
+
+(define lista1
+  (lambda (L p)
+    (if (null? (cdr L)) L
+        (if(equal? (last (car L)) p)
+            (append (list (car L)) (list (lista1 (cdr L) p)))
+            (lista1 (cdr L) p)
+            )
+        )))
+
+(define lista2
+  (lambda (L p)
+    (if (null? (cdr L)) L
+        (if(>= (age (car L)) p)
+            (append (list (car L)) (list (lista2 (cdr L) p)))
+            (lista2 (cdr L) p)
+            )
+        )))
+
+(lista1 personas "heredia")
+(make-string 100 #\-)
+(lista2 personas 20)
